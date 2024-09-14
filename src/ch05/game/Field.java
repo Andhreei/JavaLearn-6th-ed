@@ -51,7 +51,7 @@ public class Field extends JComponent
 
 	public void setupHedge()
 	{
-		hedge.setPosition(150, 300);
+		hedge.setPosition(300, 100);
 	}
 
 	public void setPlayer(Physicist p)
