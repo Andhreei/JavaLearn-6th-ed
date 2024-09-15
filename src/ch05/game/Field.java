@@ -2,6 +2,8 @@ package ch05.game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The playing field for our game. This class will be undergoing quite a few
@@ -12,7 +14,8 @@ import java.awt.*;
 public class Field extends JComponent
 {
 	public static final float GRAVITY                  = 9.8f;
-	public static final int   STEP                     = 40;   // duration of an animation frame in milliseconds
+	public static final int   STEP                     = 40;   // duration of an animation frame in
+	// milliseconds
 	public static final int   APPLE_SIZE_IN_PIXELS     = 30;
 	public static final int   TREE_WIDTH_IN_PIXELS     = 60;
 	public static final int   TREE_HEIGHT_IN_PIXELS    = 2 * TREE_WIDTH_IN_PIXELS;
@@ -23,11 +26,11 @@ public class Field extends JComponent
 
 	Color fieldColor = Color.LIGHT_GRAY;
 
-	Apple     a1    = new Apple();
-	Apple     a2    = new Apple();
-	Tree      tree  = new Tree();
-	Hedge     hedge = new Hedge();
-	Physicist physicist;
+	Apple        a1     = new Apple();
+	Apple        a2     = new Apple();
+	List <Tree>  trees  = new ArrayList <>();
+	List <Hedge> hedges = new ArrayList <>();
+	Physicist    physicist;
 
 	public void setupApples()
 	{
@@ -42,16 +45,36 @@ public class Field extends JComponent
 		a2.y        = 200;
 	}
 
+	/**
+	 * @deprecated Replaced in ch7 with adding tree in List
+	 */
 	public void setupTree()
 	{
 		// Unlike apples, we'll use the setPosition() method from our
 		// GamePiece interface to setup our lonely tree
-		tree.setPosition(500, 200);
+		//		tree.setPosition(500, 200);
 	}
 
+	public void addTree(int x, int y)
+	{
+		Tree tree = new Tree();
+		tree.setPosition(x, y);
+		trees.add(tree);
+	}
+
+	/**
+	 * @deprecated Replaced in ch7 with adding hedges in List
+	 */
 	public void setupHedge()
 	{
-		hedge.setPosition(300, 100);
+		//		hedge.setPosition(300, 100);
+	}
+
+	public void addHedge(int x, int y)
+	{
+		Hedge hedge = new Hedge();
+		hedge.setPosition(x, y);
+		hedges.add(hedge);
 	}
 
 	public void setPlayer(Physicist p)
@@ -63,11 +86,17 @@ public class Field extends JComponent
 	{
 		g.setColor(fieldColor);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		tree.draw(g);
+		for (Tree tree : trees)
+		{
+			tree.draw(g);
+		}
 		physicist.draw(g);
 		a1.draw(g);
 		a2.draw(g);
-		hedge.draw(g);
+		for (Hedge hedge : hedges)
+		{
+			hedge.draw(g);
+		}
 	}
 
 	public void detectCollisions()

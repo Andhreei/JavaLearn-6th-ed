@@ -35,8 +35,20 @@ public class AppleToss extends JFrame
 		field.setPlayer(player1);
 		player1.setField(field);
 		field.setupApples();
-		field.setupTree();
-		field.setupHedge();
+		for (int row = 1; row <= 2; row++)
+		{
+			for (int col = 1; col <= 3; col++)
+			{
+				field.addTree(col * 100, row * 100);
+			}
+		}
+		for (int row = 1; row <= 2; row++)
+		{
+			for (int col = 4; col <= 6; col++)
+			{
+				field.addHedge(col * 100, row * 100);
+			}
+		}
 		add(field);
 	}
 
