@@ -23,6 +23,8 @@ public class Field extends JComponent
 	public static final int   HEDGE_HEIGHT_IN_PIXELS   = HEDGE_WIDTH_IN_PIXELS / 2;
 	public static final int   PHYSICIST_SIZE_IN_PIXELS = 75;
 	public static final int   MAX_TREES                = 12;
+	public static final int   FIELD_WIDTH_IN_PIXELS    = 800;
+	public static final int   FIELD_HEIGHT_IN_PIXELS   = 600;
 
 	Color fieldColor = Color.LIGHT_GRAY;
 
@@ -44,6 +46,8 @@ public class Field extends JComponent
 		a2.x        = 70;
 		a2.y        = 200;
 	}
+
+
 
 	/**
 	 * @deprecated Replaced in ch7 with adding tree in List
