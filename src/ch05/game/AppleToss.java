@@ -47,6 +47,25 @@ public class AppleToss extends JFrame
 		return leftMargin + (int) (Math.random() * (rightMargin - leftMargin));
 	}
 
+	public void addApples(int size)
+	{
+		for (int i = field.apples.size(); i < Field.MAX_APPLES; i++)
+		{
+			Apple a = new Apple(size);
+			a.setPosition(goodX(), goodY());
+
+			// Trees can be close to each other and overlap,
+			// but they shouldn't intersect our physicist
+			while (player1.isTouching(a))
+			{
+				// We do intersect this apple, so let's try again
+				System.err.println("Repositioning an intersecting apple...");
+				a.setPosition(goodX(), goodY());
+			}
+			field.addApple(a.x, a.y, size);
+		}
+	}
+
 	public void addTrees()
 	{
 		for (int i = field.trees.size(); i < Field.MAX_TREES; i++)
@@ -62,8 +81,34 @@ public class AppleToss extends JFrame
 				System.err.println("Repositioning an intersecting tree...");
 				t.setPosition(goodX(), goodY());
 			}
-			field.addTree(t.x,t.y);
+			field.addTree(t.x, t.y);
 		}
+	}
+
+	public void addHedges()
+	{
+		for (int i = field.hedges.size(); i < Field.MAX_HEDGES; i++)
+		{
+			Hedge h = new Hedge();
+			h.setPosition(goodX(), goodY());
+
+			// Trees can be close to each other and overlap,
+			// but they shouldn't intersect our physicist
+			while (player1.isTouching(h))
+			{
+				// We do intersect this hedge, so let's try again
+				System.err.println("Repositioning an intersecting hedge...");
+				h.setPosition(goodX(), goodY());
+			}
+			field.addHedge(h.x, h.y);
+		}
+	}
+
+	public void AddPhysicistApple(int size)
+	{
+		Apple apple = new Apple(player1,size);
+		apple.setPosition(player1.x,player1.y);
+		field.addApple(apple.x,apple.y,size);
 	}
 
 	/**
@@ -75,15 +120,10 @@ public class AppleToss extends JFrame
 		player1.setPosition(100, 510);
 		field.setPlayer(player1);
 		player1.setField(field);
-		field.setupApples();
+		addApples(Apple.SMALL);
+		AddPhysicistApple(Apple.SMALL);
 		addTrees();
-		for (int row = 1; row <= 2; row++)
-		{
-			for (int col = 4; col <= 6; col++)
-			{
-				field.addHedge(col * 100, row * 100);
-			}
-		}
+		addHedges();
 		add(field);
 	}
 

@@ -1,4 +1,4 @@
-package ch05.game;
+package ch09.game;
 
 import java.awt.*;
 
@@ -49,11 +49,6 @@ public class Apple implements GamePiece
 	{
 		myPhysicist = owner;
 		setSize(size);
-	}
-
-	public Apple(int size)
-	{
-		this.setSize(size);
 	}
 
 	/**
